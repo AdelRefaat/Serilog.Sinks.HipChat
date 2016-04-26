@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Serilog.Sinks.HipChat</id>
+    <version>0.0.1</version>
+    <title>Serilog.Sinks.HipChat</title>
+    <authors>Adel Refaat</authors>
+    <owners>Adel Refaat</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Serilog.Sinks.HipChat</description>
+    <releaseNotes />
+    <dependencies>
+        <dependency id="HipChat.Net.Portable" version="0.1.2" />
+        <dependency id="Serilog" version="1.5.14" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Serilog.Sinks.HipChat.dll" target="lib\Serilog.Sinks.HipChat.dll" />
+  </files>
+</package>
