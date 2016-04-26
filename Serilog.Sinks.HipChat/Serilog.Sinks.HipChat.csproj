@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Serilog.Sinks.HipChat</RootNamespace>
     <AssemblyName>Serilog.Sinks.HipChat</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,6 +88,7 @@
   </Target>
   -->
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
-    <Exec Command="nuget pack Serilog.Sinks.HipChat.csproj -OutputDirectory bin\Release -Prop Configuration=Release"></Exec>
+    <Exec Command="nuget pack Serilog.Sinks.HipChat.csproj -OutputDirectory bin\Release -Prop Configuration=Release">
+    </Exec>
   </Target>
 </Project>
