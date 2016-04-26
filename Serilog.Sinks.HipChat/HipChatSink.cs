@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using HipChat.Net;
 using HipChat.Net.Http;
-using Serilog.Core;
 using Serilog.Events;
+using Serilog.Sinks.PeriodicBatching;
 
 namespace Serilog.Sinks.HipChat
 {
-    internal class HipChatSink : ILogEventSink, IDisposable
+    internal class HipChatSink : PeriodicBatchingSink
     {
         private readonly string _roomId;
         private readonly LogEventLevel _restrictedToMinimumLevel;
@@ -14,27 +16,27 @@ namespace Serilog.Sinks.HipChat
         private readonly HipChatClient _client;
         private readonly object _syncRoot = new object();
 
-        public HipChatSink(string token, string roomId, LogEventLevel restrictedToMinimumLevel)
+        public HipChatSink(string token, string roomId, LogEventLevel restrictedToMinimumLevel, int batchSizeLimit, TimeSpan period) : base(batchSizeLimit, period)
         {
             _roomId = roomId;
             _restrictedToMinimumLevel = restrictedToMinimumLevel;
             _client = new HipChatClient(new ApiConnection(new Credentials(token)));
         }
 
-        public void Emit(LogEvent logEvent)
+        protected override bool CanInclude(LogEvent logEvent)
         {
-            if (logEvent.Level < _restrictedToMinimumLevel)
-                return;
-
-            lock (_syncRoot)
-            {
-                var message = logEvent.RenderMessage();
-                _client.Rooms.SendNotificationAsync(_roomId, message);
-            }
+            return logEvent.Level >= _restrictedToMinimumLevel;
         }
 
-        public void Dispose()
+        protected override void EmitBatch(IEnumerable<LogEvent> events)
         {
+            lock (_syncRoot)
+            {
+                foreach (var message in events.Select(logEvent => logEvent.RenderMessage()))
+                {
+                    _client.Rooms.SendNotificationAsync(_roomId, message);
+                }
+            }
         }
     }
 }

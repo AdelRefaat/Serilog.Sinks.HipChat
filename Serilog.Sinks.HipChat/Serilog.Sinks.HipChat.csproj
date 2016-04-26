@@ -86,4 +86,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <Exec Command="nuget pack Serilog.Sinks.HipChat.csproj -OutputDirectory bin\Release -Prop Configuration=Release"></Exec>
+  </Target>
 </Project>
