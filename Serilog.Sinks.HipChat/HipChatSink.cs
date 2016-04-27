@@ -34,7 +34,7 @@ namespace Serilog.Sinks.HipChat
             {
                 foreach (var message in events.Select(logEvent => logEvent.RenderMessage()))
                 {
-                    _client.Rooms.SendNotificationAsync(_roomId, message);
+                    _client.Rooms.SendNotificationAsync(_roomId, message).Wait();
                 }
             }
         }
