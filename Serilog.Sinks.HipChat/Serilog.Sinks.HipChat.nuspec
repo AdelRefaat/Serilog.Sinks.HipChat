@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Serilog.Sinks.HipChat</id>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
     <title>Serilog.Sinks.HipChat</title>
     <authors>Adel Refaat</authors>
     <owners>Adel Refaat</owners>
@@ -10,8 +10,9 @@
     <description>Serilog.Sinks.HipChat</description>
     <releaseNotes />
     <dependencies>
-        <dependency id="Flurl.Http" version="0.9.0" />
-        <dependency id="Serilog" version="1.5.14" />
+      <dependency id="Flurl.Http" version="1.0.3" />
+      <dependency id="Serilog" version="2.2.1" />
+      <dependency id="Serilog.Sinks.PeriodicBatching" version="2.0.1"/>
     </dependencies>
   </metadata>
   <files>
